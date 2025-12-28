@@ -1,41 +1,15 @@
--- Create Authors table first
-CREATE TABLE IF NOT EXISTS Authors (
-    author_id INT PRIMARY KEY,
-    author_name VARCHAR(215)
-);
-
--- Create Books table (references Authors)
-CREATE TABLE IF NOT EXISTS Books (
-    book_id INT PRIMARY KEY,
-    title VARCHAR(130),
-    author_id INT,
-    price DOUBLE,
-    publication_date DATE,
-    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
-);
-
--- Create Customers table
-CREATE TABLE IF NOT EXISTS Customers (
+-- Inside task_2.sql, change the Customers table to this:
+CREATE TABLE IF NOT EXISTS customer (
     customer_id INT PRIMARY KEY,
     customer_name VARCHAR(215),
     email VARCHAR(215),
     address TEXT
 );
 
--- Create Orders table (references Customers)
-CREATE TABLE IF NOT EXISTS Orders (
+-- Also update the Orders table to point to the new name:
+CREATE TABLE IF NOT EXISTS orders (
     order_id INT PRIMARY KEY,
     customer_id INT,
     order_date DATE,
-    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
-);
-
--- Create Order_Details table (references Orders and Books)
-CREATE TABLE IF NOT EXISTS Order_Details (
-    orderdetailid INT PRIMARY KEY,
-    order_id INT,
-    book_id INT,
-    quantity DOUBLE,
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
 );
