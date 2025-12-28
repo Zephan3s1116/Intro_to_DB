@@ -1,4 +1,17 @@
--- Inside task_2.sql, change the Customers table to this:
+CREATE TABLE IF NOT EXISTS Authors (
+    author_id INT PRIMARY KEY,
+    author_name VARCHAR(215)
+);
+
+CREATE TABLE IF NOT EXISTS Books (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(130),
+    author_id INT,
+    price DOUBLE,
+    publication_date DATE,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
+);
+
 CREATE TABLE IF NOT EXISTS customer (
     customer_id INT PRIMARY KEY,
     customer_name VARCHAR(215),
@@ -6,10 +19,18 @@ CREATE TABLE IF NOT EXISTS customer (
     address TEXT
 );
 
--- Also update the Orders table to point to the new name:
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE IF NOT EXISTS Orders (
     order_id INT PRIMARY KEY,
     customer_id INT,
     order_date DATE,
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+
+CREATE TABLE IF NOT EXISTS order_details (
+    orderdetailid INT PRIMARY KEY,
+    order_id INT,
+    book_id INT,
+    quantity DOUBLE,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
 );
